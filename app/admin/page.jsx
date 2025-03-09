@@ -8,13 +8,6 @@ const page = () => {
   return (
     <div className='text-2xl mx-3 mt-4'>
 
-
-
-
-
-
-
-
       <div className="flex items-center justify-between w-full py-3 max-h-[60px] px-12 border-b border-black ">
         <CgProfile size={40} />
       </div>

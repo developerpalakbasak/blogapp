@@ -9,15 +9,14 @@ const BlogList = () => {
     const [blogs, setBlogs] = useState([]);
     const [loader, setLoader] = useState(true)
     const [error, setError] = useState(false)
-    // console.log(error)
-    // const BACKEND_URI="http://localhost:4000"
+
+    const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'
+
 
     const fetchBlogs = async () => {
         try {
 
-            // const response = await axios.get(`api/blog`);
-            const response = await axios.get("api/blog");
-            // const response = await axios.get("https://jsonplaceholder.typicode.com/users");
+            const response = await axios.get(`${siteUrl}/api/blog`);
             
 
             const {data} = response

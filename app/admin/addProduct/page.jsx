@@ -11,7 +11,9 @@ const Page = () => {
   const descriptionRef = useRef(null);
   const categoryRef = useRef(null);
 
- 
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'
+
+
 
   const onSubmitHandler = async (e) => {
     e.preventDefault();
@@ -25,7 +27,7 @@ const Page = () => {
     formData.append('image', image);
 
     try {
-      const response = await axios.post("/api/blog", formData, {
+      const response = await axios.post(`${siteUrl}/api/blog`, formData, {
         headers: { "Content-Type": "multipart/form-data" },
       });
 

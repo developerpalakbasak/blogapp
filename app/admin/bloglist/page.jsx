@@ -10,10 +10,14 @@ const page = () => {
   const [loading, setLoading] = useState(true); // Loading state
   const revBlogs = [...blogs].reverse();
 
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'
+
+
+
   const fetchBlogs = async () => {
     try {
       setLoading(true); // Start loading
-      const res = await axios.get("/api/blog");
+      const res = await axios.get(`${siteUrl}/api/blog`);
       setBlogs(res.data.blogs);
     } catch (error) {
       toast.error('Failed to fetch blogs');

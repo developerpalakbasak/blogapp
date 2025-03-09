@@ -8,12 +8,14 @@ import { toast } from 'react-toastify'
 const page = () => {
 
   const [emails, setEmails] = useState([]);
-  const [loading, setLoading] = useState(true); // Loading state
+  const [loading, setLoading] = useState(true); 
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'
+
 
   const fetchEmails = async () => {
     try {
       setLoading(true);
-      const res = await axios.get('/api/email');
+      const res = await axios.get(`${siteUrl}/api/blog`);
       setEmails(res.data.emails);
     } catch (error) {
       toast.error('Failed to fetch emails');
