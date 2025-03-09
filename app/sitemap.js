@@ -1,14 +1,12 @@
-import axios from "axios";
+import { ConnectDB } from "@/lib/config/db";
+import BlogModel from "@/lib/models/Blogmodel";
 
 export default async function sitemap() {
-
- const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'
-
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
 
   try {
-
-    const response = await axios.get(`${siteUrl}/api/blog`);
-    const { blogs } = response.data
+    await ConnectDB();
+    const blogs = await BlogModel.find().select("slug date").lean();
 
     // Generate dynamic URLs for each blog
     const blogSitemap = blogs.map((blog) => ({
@@ -21,19 +19,14 @@ export default async function sitemap() {
     return [
       {
         url: `${siteUrl}`,
-        lastModified: new Date(),
-        changeFrequency: 'yearly',
+        lastModified: new Date().toISOString(),
+        changeFrequency: "yearly",
         priority: 1,
       },
-
-      ...blogSitemap
-
+      ...blogSitemap,
     ];
-
-
-
   } catch (error) {
-    console.log(error);
-
+    console.error("Error generating sitemap:", error);
+    return [];
   }
 }
